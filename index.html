@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Drawing App</title>
+<link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+<div id="startup">
+
+<div id="startupBox">
+
+<h2>Create New Canvas</h2>
+
+<label>Width</label>
+<input id="newWidth" type="number" value="1000">
+<div></div>
+<label>Height</label>
+<input id="newHeight" type="number" value="650">
+
+<button id="createCanvas">Create</button>
+
+</div>
+
+</div>
+
+<div id="workspace">
+
+<div id="canvasArea">
+<div id="canvasWrapper">
+<div id="canvasContainer"></div>
+</div>
+</div>
+
+<div id="panel">
+
+<h3>Tools</h3>
+
+<button onclick="setTool('brush')">Brush</button>
+<button onclick="setTool('eraser')">Eraser</button>
+<button onclick="setTool('line')">Line</button>
+<button onclick="setTool('rect')">Rectangle</button>
+<button onclick="setTool('circle')">Circle</button>
+<button onclick="setTool('fill')">Fill</button>
+
+<h3>Brush</h3>
+
+<input type="color" id="colorPicker">
+
+<label>Size</label>
+<input id="size" type="range" min="1" max="80" value="5">
+
+<label>Opacity</label>
+<input id="opacity" type="range" min="1" max="100" value="100">
+
+<h3>View</h3>
+
+<button id="zoomIn">Zoom In</button>
+<button id="zoomOut">Zoom Out</button>
+
+<h3>History</h3>
+
+<button id="undo">Undo</button>
+<button id="redo">Redo</button>
+
+<h3>Project</h3>
+
+<button id="saveProject">Save Project</button>
+<input type="file" id="loadProject" accept=".draw">
+
+<button id="download">Export PNG</button>
+
+<h3>Layers</h3>
+
+<button id="addLayer">Add Layer</button>
+
+<div id="layers"></div>
+
+</div>
+
+</div>
+
+<script src="script.js"></script>
+
+</body>
+</html>
