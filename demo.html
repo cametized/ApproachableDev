@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Paint App</title>
+<link rel="stylesheet" href="styles/style.css">
+</head>
+
+<body>
+
+<div id="startup">
+  <div class="startupBox">
+    <h2>New Canvas</h2>
+    <input id="newWidth" placeholder="Width" value="1000">
+    <input id="newHeight" placeholder="Height" value="650">
+    <button id="createCanvas">Create</button>
+  </div>
+</div>
+
+<div id="topbar">
+
+  <div class="toolGroup">
+    <button class="toolButton activeTool" data-tool="brush">Brush</button>
+    <button class="toolButton" data-tool="eraser">Eraser</button>
+    <button class="toolButton" data-tool="line">Line</button>
+    <button class="toolButton" data-tool="rect">Rectangle</button>
+    <button class="toolButton" data-tool="circle">Circle</button>
+    | |
+    <button class="tool" onclick="undo()">Undo</button>
+    <button class="tool" onclick="redo()">Redo</button>
+  </div>
+
+  <div class="settingsGroup">
+    <input type="color" id="colorPicker">
+    <input type="range" id="size" min="1" max="50" value="5">
+    <input type="range" id="opacity" min="1" max="100" value="100">
+  </div>
+
+  <div class="zoomGroup">
+    <button id="zoomOut">−</button>
+    <button id="zoomIn">+</button>
+  </div>
+
+</div>
+
+<div id="main">
+
+  <div id="canvasWrapper">
+    <div id="canvasContainer"></div>
+  </div>
+
+  <div id="sidebar">
+    <h3>Layers</h3>
+    <div id="layers"></div>
+  </div>
+
+</div>
+
+<script src="script/script.js"></script>
+</body>
+</html>

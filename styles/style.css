@@ -1,0 +1,141 @@
+body{
+margin:0;
+background:#1e1e1e;
+color:#ddd;
+font-family:sans-serif;
+overflow:hidden;
+}
+
+/* TOPBAR */
+#topbar{
+height:50px;
+background:#2a2a2a;
+display:flex;
+align-items:center;
+justify-content:space-between;
+padding:0 10px;
+border-bottom:1px solid #000;
+}
+
+.toolGroup, .settingsGroup, .zoomGroup{
+display:flex;
+gap:6px;
+align-items:center;
+}
+
+.toolButton{
+background:#3a3a3a;
+border:none;
+color:#ddd;
+width:70px;
+height:34px;
+cursor:pointer;
+border-radius:6px;
+transition:.15s;
+font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+}
+
+.toolButton:hover{
+background:#4a4a4a;
+}
+
+.toolButton.activeTool{
+background:#111;
+color:white;
+}
+
+/* MAIN LAYOUT */
+#main{
+display:flex;
+height:calc(100vh - 50px);
+}
+
+/* CANVAS */
+#canvasWrapper{
+flex:1;
+display:flex;
+justify-content:center;
+align-items:center;
+overflow:hidden;
+transform-origin:0 0;
+}
+
+#canvasContainer{
+position:relative;
+background:white;
+box-shadow:0 0 20px rgba(0,0,0,.6);
+}
+
+canvas{
+position:absolute;
+top:0;
+left:0;
+}
+
+/* SIDEBAR */
+#sidebar{
+width:160px;
+background:#2a2a2a;
+border-left:1px solid #000;
+padding:10px;
+}
+
+.layer{
+padding:6px;
+margin-bottom:4px;
+background:#3a3a3a;
+border-radius:4px;
+cursor:pointer;
+}
+
+.layer.active{
+background:#111;
+}
+
+/* STARTUP */
+#startup{
+position:fixed;
+inset:0;
+background:#111;
+display:flex;
+justify-content:center;
+align-items:center;
+}
+
+.startupBox{
+background:#222;
+padding:20px;
+border-radius:10px;
+display:flex;
+flex-direction:column;
+gap:10px;
+}
+
+#zoomOut, #zoomIn{
+background:#3a3a3a;
+border:none;
+color:#ddd;
+width:34px;
+height:34px;
+cursor:pointer;
+border-radius:6px;
+transition:.15s;
+font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+font-size: 20px;
+}
+
+.tool{
+background:#3a3a3a;
+border:none;
+color:#ddd;
+width:70px;
+height:34px;
+cursor:pointer;
+border-radius:6px;
+transition:.15s;
+font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+}
+
+.tool:hover{
+background:#4a4a4a;
+}
