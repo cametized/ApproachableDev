@@ -26,6 +26,10 @@ const color=document.getElementById("colorPicker")
 const size=document.getElementById("size")
 const opacity=document.getElementById("opacity")
 
+/* TOUCH SUPPORT */
+let pointers=new Map()
+let lastDist=0
+
 /* TOOL UI */
 document.querySelectorAll(".toolButton").forEach(btn=>{
 btn.onclick=()=>{
@@ -130,7 +134,8 @@ function undo(){restoreState(undoStack,redoStack)}
 function redo(){restoreState(redoStack,undoStack)}
 
 function startDraw(e){
-if(spaceHeld) return
+if(spaceHeld || pointers.size>1) return
+e.preventDefault()
 
 saveState()
 drawing=true
@@ -146,6 +151,7 @@ ctx.moveTo(pos.x,pos.y)
 
 function draw(e){
 if(!drawing) return
+e.preventDefault()
 
 const pos=getPos(e)
 const ctx=layers[activeLayer].ctx
@@ -233,7 +239,7 @@ zoom=z
 wrapper.style.transform=`scale(${zoom}) translate(${offsetX}px,${offsetY}px)`
 }
 
-/* PAN */
+/* PAN + TOUCH GESTURES */
 let spaceHeld=false
 let dragging=false
 
@@ -249,7 +255,10 @@ if(e.code==="Space") spaceHeld=false
 })
 
 wrapper.addEventListener("pointerdown",e=>{
-if(spaceHeld){
+wrapper.setPointerCapture(e.pointerId)
+pointers.set(e.pointerId,e)
+
+if(pointers.size===1 && (spaceHeld || e.pointerType==="touch")){
 dragging=true
 startX=e.clientX
 startY=e.clientY
@@ -257,7 +266,28 @@ startY=e.clientY
 })
 
 wrapper.addEventListener("pointermove",e=>{
-if(dragging){
+if(!pointers.has(e.pointerId)) return
+pointers.set(e.pointerId,e)
+
+/* PINCH ZOOM */
+if(pointers.size===2){
+const pts=Array.from(pointers.values())
+const dx=pts[0].clientX-pts[1].clientX
+const dy=pts[0].clientY-pts[1].clientY
+const dist=Math.hypot(dx,dy)
+
+if(lastDist){
+const delta=dist/lastDist
+setZoom(zoom*delta)
+}
+
+lastDist=dist
+dragging=false
+return
+}
+
+/* PAN */
+if(dragging && pointers.size===1){
 offsetX+=(e.clientX-startX)/zoom
 offsetY+=(e.clientY-startY)/zoom
 setZoom(zoom)
@@ -267,7 +297,15 @@ startY=e.clientY
 }
 })
 
-wrapper.addEventListener("pointerup",()=>dragging=false)
+wrapper.addEventListener("pointerup",e=>{
+pointers.delete(e.pointerId)
+if(pointers.size<2) lastDist=0
+dragging=false
+})
+
+wrapper.addEventListener("pointercancel",e=>{
+pointers.delete(e.pointerId)
+})
 
 /* START */
 document.getElementById("createCanvas").onclick=function(){
